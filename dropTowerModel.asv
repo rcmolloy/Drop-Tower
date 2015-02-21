@@ -1,0 +1,24 @@
+function dx = dropTowerModel(t,x)
+
+%% Initial Conditions
+
+g = 32.174;     % Gravitational Constant (in/s^2)
+alpha = -.144;
+sigma = 58000000;
+delta = .001587;
+Bo = .147 * .147;
+lmag = .304;
+wmag = .0254;
+
+
+%% Two First Order ODE Solutions to 2nd Order ODE 
+if x(1) > 5
+    
+    dx(1,1) = x(2); % Position to Velocity (in/s)
+    dx(2,1) = -g; % Acceleration (in/s)
+
+else
+    dx(1,1) = x(2); % Position to Velocity (in/s)
+    dx(2,1) = -g + (alpha * sigma * delta * Bo * lmag * wmag; % Acceleration (in/s) 
+end
+

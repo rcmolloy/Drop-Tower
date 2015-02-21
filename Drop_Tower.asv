@@ -1,0 +1,35 @@
+%% Robert Cory Molloy - Drop Tower Model :: Matlab Model
+
+clc
+clear all
+close all
+
+%% Initial Conditions & ODE45 Function for ODE
+
+tspan = [0:.01:.5]; % Time span for ODE45 Function
+ICs = [10, 0];   % Initial Position (ft) & Velocity (ft/s)
+
+[t,x] = ode45('dropTowerModel', tspan, ICs);
+
+brakeX = (x(end,1));
+brakeV = (x(end,2));
+
+tspan2 = [0:.01:1.07]; % Time span for ODE45 Function
+ICs2 = [brakeX, brakeV];   % Initial Position (ft) & Velocity (ft/s)
+
+[t1,x1] = ode45('dropTowerModelBrake', tspan2, ICs2);
+
+newX = [0,0];
+newY = [0,10];
+
+finalMatrix = [x(end,1),x1];
+figure
+%%
+for i=1:length(t)
+
+    dropSim = x(i,1);
+    
+plot(newX,newY,0,dropSim(1),'o');
+axis([-10 10 0 12]);
+pause(max(t)/(length(t)));
+end
